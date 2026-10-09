@@ -40,25 +40,45 @@ class _PgCursorWrapper:
     def execute(self, sql, params=()):
         # Convert SQLite ? placeholders to PostgreSQL %s
         sql = sql.replace("?", "%s")
-        # Convert SQLite-specific pragmas to no-ops
-        if sql.strip().upper().startswith("PRAGMA"):
+        # Adapt DDL for PostgreSQL
+        sql = _adapt_ddl(sql)
+
+        # Handle SQLite PRAGMA table_info(table_name)
+        clean_sql = sql.strip()
+        if clean_sql.upper().startswith("PRAGMA TABLE_INFO("):
+            tbl = clean_sql[len("PRAGMA TABLE_INFO("):].rstrip(");").strip().strip("\"'").lower()
+            self._cur.execute(
+                "SELECT column_name AS name FROM information_schema.columns WHERE table_name = %s",
+                (tbl,)
+            )
             return self
+        elif clean_sql.upper().startswith("PRAGMA"):
+            # Other pragmas are no-ops on PostgreSQL
+            self._cur.execute("SELECT 1 WHERE 1=0")
+            return self
+
         self._cur.execute(sql, params)
         return self
 
     def fetchone(self):
+        if not self._cur.description:
+            return None
         row = self._cur.fetchone()
         if row is None:
             return None
         return _PgRowWrapper(row, self._cur.description)
 
     def fetchall(self):
+        if not self._cur.description:
+            return []
         rows = self._cur.fetchall()
         if not rows:
             return []
         return [_PgRowWrapper(r, self._cur.description) for r in rows]
 
     def __iter__(self):
+        if not self._cur.description:
+            return iter([])
         for row in self._cur:
             yield _PgRowWrapper(row, self._cur.description)
 
@@ -114,13 +134,23 @@ def connect():
 
 
 def _adapt_ddl(sql: str) -> str:
-    """Adapt SQLite DDL to PostgreSQL syntax when needed."""
+    """Adapt SQLite DDL and queries to PostgreSQL syntax when needed."""
     if not USE_POSTGRES:
         return sql
     sql = sql.replace("INTEGER PRIMARY KEY AUTOINCREMENT", "SERIAL PRIMARY KEY")
-    sql = sql.replace("TEXT DEFAULT CURRENT_TIMESTAMP", "TEXT DEFAULT (NOW() AT TIME ZONE 'UTC')")
-    sql = sql.replace("INSERT OR REPLACE INTO", "INSERT INTO")
-    sql = sql.replace("INSERT OR IGNORE INTO", "INSERT INTO")
+    sql = sql.replace("TEXT DEFAULT CURRENT_TIMESTAMP", "TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP")
+
+    # Adapt INSERT OR IGNORE INTO ... and INSERT OR REPLACE INTO ...
+    clean_upper = sql.strip().upper()
+    if clean_upper.startswith("INSERT OR IGNORE INTO ") or clean_upper.startswith("INSERT OR REPLACE INTO "):
+        prefix = "INSERT OR IGNORE INTO " if clean_upper.startswith("INSERT OR IGNORE INTO ") else "INSERT OR REPLACE INTO "
+        sql_rest = sql.strip()[len(prefix):]
+        # Append ON CONFLICT DO NOTHING if not already present
+        if "ON CONFLICT" not in sql_rest.upper():
+            sql = f"INSERT INTO {sql_rest} ON CONFLICT DO NOTHING"
+        else:
+            sql = f"INSERT INTO {sql_rest}"
+
     return sql
 
 
@@ -152,6 +182,16 @@ def _now_iso() -> str:
 
 
 def init_db():
+    if USE_POSTGRES:
+        # On Neon PostgreSQL, tables and seed data are already created and managed.
+        # Check if initialized, if yes return immediately.
+        try:
+            with connect() as conn:
+                r = conn.execute("SELECT 1 FROM information_schema.tables WHERE table_name = 'villages'").fetchone()
+                if r:
+                    return
+        except Exception:
+            pass
     with connect() as conn:
         # 1. Existing table: villages
         conn.execute(
