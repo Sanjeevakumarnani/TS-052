@@ -21,3 +21,5 @@ frontend/.env
 .vscode/
 .idea/
 scratch/
+.env.local
+node_modules/
