@@ -1,0 +1,1666 @@
+[
+  {
+    "id": "TS-DEMO-001",
+    "name": "Demo Village A",
+    "state": "Telangana",
+    "district": "Nalgonda",
+    "block": "Demo Block",
+    "latitude": 17.05,
+    "longitude": 79.27,
+    "population": {
+      "value": 4820,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 52,
+        "availability_score": 95,
+        "reliability_score": 52,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 95,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 52,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 71,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 71,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 39,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 39,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 48,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 48,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 44,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 44,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 82,
+    "alternative_access": 22,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Road accessibility and critical-service access need review.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-002",
+    "name": "Demo Village B",
+    "state": "Telangana",
+    "district": "Nalgonda",
+    "block": "Demo Block",
+    "latitude": 17.22,
+    "longitude": 79.48,
+    "population": {
+      "value": 6100,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 64,
+        "availability_score": 88,
+        "reliability_score": 64,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 88,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 64,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 59,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 59,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 48,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 48,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 55,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 55,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 51,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 51,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 78,
+    "alternative_access": 35,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Power interruptions and low network consistency are demo signals.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-003",
+    "name": "Demo Village C",
+    "state": "Telangana",
+    "district": "Nagarkurnool",
+    "block": "Demo Block",
+    "latitude": 16.52,
+    "longitude": 78.32,
+    "population": {
+      "value": 7200,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 43,
+        "availability_score": 91,
+        "reliability_score": 43,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 91,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 43,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 47,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 47,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 35,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 35,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 40,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 40,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 38,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 38,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 90,
+    "alternative_access": 18,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Low road accessibility and few alternatives drive a high priority score.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-004",
+    "name": "Demo Village D",
+    "state": "Telangana",
+    "district": "Mahabubnagar",
+    "block": "Demo Block",
+    "latitude": 16.74,
+    "longitude": 77.99,
+    "population": {
+      "value": 3150,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 77,
+        "availability_score": 94,
+        "reliability_score": 77,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 94,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 77,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 83,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 83,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 74,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 74,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 72,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 72,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 69,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 69,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 58,
+    "alternative_access": 60,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "A comparatively reliable demo village with remaining digital gaps.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-005",
+    "name": "Demo Village E",
+    "state": "Telangana",
+    "district": "Medak",
+    "block": "Demo Block",
+    "latitude": 18.05,
+    "longitude": 78.26,
+    "population": {
+      "value": 2450,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 68,
+        "availability_score": 86,
+        "reliability_score": 68,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 86,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 68,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 76,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 76,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 61,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 61,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 60,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 60,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 66,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 66,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 55,
+    "alternative_access": 52,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Moderate performance across infrastructure dimensions.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-006",
+    "name": "Demo Village F",
+    "state": "Telangana",
+    "district": "Adilabad",
+    "block": "Demo Block",
+    "latitude": 19.12,
+    "longitude": 78.52,
+    "population": {
+      "value": 5400,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 39,
+        "availability_score": 90,
+        "reliability_score": 39,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 90,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 39,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 64,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 64,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 42,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 42,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 36,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 36,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 47,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 47,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 76,
+    "alternative_access": 24,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Digital connectivity and public-service access need verification.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-007",
+    "name": "Demo Village G",
+    "state": "Telangana",
+    "district": "Karimnagar",
+    "block": "Demo Block",
+    "latitude": 18.43,
+    "longitude": 79.12,
+    "population": {
+      "value": 3900,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 82,
+        "availability_score": 93,
+        "reliability_score": 82,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 93,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 82,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 78,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 78,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 73,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 73,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 81,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 81,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 77,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 77,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 47,
+    "alternative_access": 65,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Generally strong demo performance with a few possible improvement areas.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-008",
+    "name": "Demo Village H",
+    "state": "Telangana",
+    "district": "Khammam",
+    "block": "Demo Block",
+    "latitude": 17.25,
+    "longitude": 80.14,
+    "population": {
+      "value": 8100,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 57,
+        "availability_score": 89,
+        "reliability_score": 57,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 89,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 57,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 51,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 51,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 46,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 46,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 50,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 50,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 42,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 42,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 91,
+    "alternative_access": 28,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Large population and weak road/service access create elevated priority.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-009",
+    "name": "Demo Village I",
+    "state": "Telangana",
+    "district": "Warangal",
+    "block": "Demo Block",
+    "latitude": 17.87,
+    "longitude": 79.62,
+    "population": {
+      "value": 4600,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 71,
+        "availability_score": 92,
+        "reliability_score": 71,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 92,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 71,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 69,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 69,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 58,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 58,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 62,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 62,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 63,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 63,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 61,
+    "alternative_access": 44,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Travel-time and road-reliability data should be field-verified.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-010",
+    "name": "Demo Village J",
+    "state": "Telangana",
+    "district": "Siddipet",
+    "block": "Demo Block",
+    "latitude": 18.08,
+    "longitude": 78.85,
+    "population": {
+      "value": 1800,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 88,
+        "availability_score": 97,
+        "reliability_score": 88,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 97,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 88,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 91,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 91,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 86,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 86,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 83,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 83,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 80,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 80,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 42,
+    "alternative_access": 80,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "High demo score; some indicators remain simulated.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-011",
+    "name": "Demo Village K",
+    "state": "Telangana",
+    "district": "Bhadradri Kothagudem",
+    "block": "Demo Block",
+    "latitude": 17.68,
+    "longitude": 80.89,
+    "population": {
+      "value": 2800,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 48,
+        "availability_score": 84,
+        "reliability_score": 48,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 84,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 48,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 62,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 62,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 37,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 37,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 45,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 45,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 40,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 40,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 88,
+    "alternative_access": 20,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Seasonal road access is an important review hypothesis.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-012",
+    "name": "Demo Village L",
+    "state": "Telangana",
+    "district": "Vikarabad",
+    "block": "Demo Block",
+    "latitude": 17.34,
+    "longitude": 77.91,
+    "population": {
+      "value": 3550,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 61,
+        "availability_score": 90,
+        "reliability_score": 61,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 90,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 61,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 74,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 74,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 67,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 67,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 57,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 57,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 59,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 59,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 63,
+    "alternative_access": 48,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Moderate reliability with potential digital access gaps.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-013",
+    "name": "Demo Village M",
+    "state": "Telangana",
+    "district": "Jagtial",
+    "block": "Demo Block",
+    "latitude": 18.79,
+    "longitude": 78.91,
+    "population": {
+      "value": 5100,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 54,
+        "availability_score": 87,
+        "reliability_score": 54,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 87,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 54,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 68,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 68,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 53,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 53,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 49,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 49,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 56,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 56,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 72,
+    "alternative_access": 32,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Potential outage and access gaps; verify with real observations.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-014",
+    "name": "Demo Village N",
+    "state": "Telangana",
+    "district": "Suryapet",
+    "block": "Demo Block",
+    "latitude": 17.14,
+    "longitude": 79.62,
+    "population": {
+      "value": 4300,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 74,
+        "availability_score": 96,
+        "reliability_score": 74,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 96,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 74,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 80,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 80,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 62,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 62,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 70,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 70,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 68,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 68,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 51,
+    "alternative_access": 58,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Mostly adequate demo scores; transport access has headroom.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-015",
+    "name": "Demo Village O",
+    "state": "Telangana",
+    "district": "Mancherial",
+    "block": "Demo Block",
+    "latitude": 18.87,
+    "longitude": 79.45,
+    "population": {
+      "value": 6700,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 46,
+        "availability_score": 92,
+        "reliability_score": 46,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 92,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 46,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 55,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 55,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 41,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 41,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 44,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 44,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 49,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 49,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 83,
+    "alternative_access": 26,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Weak digital and road scores suggest follow-up review.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  },
+  {
+    "id": "TS-DEMO-016",
+    "name": "Demo Village P",
+    "state": "Telangana",
+    "district": "Yadadri Bhuvanagiri",
+    "block": "Demo Block",
+    "latitude": 17.59,
+    "longitude": 78.95,
+    "population": {
+      "value": 2950,
+      "year": 2021,
+      "source": "Illustrative synthetic demo value"
+    },
+    "dimensions": {
+      "digital": {
+        "label": "Digital connectivity",
+        "score": 80,
+        "availability_score": 95,
+        "reliability_score": 80,
+        "observed_period": "Illustrative demo period",
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Broadband availability proxy",
+            "value": 95,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          },
+          {
+            "name": "Connection reliability proxy",
+            "value": 80,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "electricity": {
+        "label": "Electricity reliability",
+        "score": 72,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Electricity reliability proxy",
+            "value": 72,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "roads": {
+        "label": "Road accessibility",
+        "score": 77,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "All-season accessibility proxy",
+            "value": 77,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "public_digital": {
+        "label": "Public digital infrastructure",
+        "score": 75,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Operational public digital access proxy",
+            "value": 75,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      },
+      "essential_services": {
+        "label": "Essential-service accessibility",
+        "score": 73,
+        "evidence_type": "simulated",
+        "confidence": "low",
+        "indicators": [
+          {
+            "name": "Essential-service accessibility proxy",
+            "value": 73,
+            "unit": "score / 100",
+            "evidence_type": "simulated"
+          }
+        ]
+      }
+    },
+    "criticality": 52,
+    "alternative_access": 62,
+    "evidence_type": "simulated",
+    "source_name": "InfraPulse synthetic demo dataset",
+    "source_url": null,
+    "source_date": "2026-10-01",
+    "data_notice": "DEMO DATA \u2014 NOT OFFICIAL MEASUREMENTS",
+    "notes": "Relatively strong demo record; values are illustrative.",
+    "geometry_note": "Map pin is illustrative and is not an official village boundary or verified village location."
+  }
+]

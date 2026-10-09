@@ -1,0 +1,2 @@
+id,name,district,latitude,longitude,population,digital_score,electricity_score,road_score,public_digital_score,essential_services_score,digital_availability,criticality,alternative_access
+IMPORT-001,Example Imported Village,Nalgonda,17.10,79.30,3000,55,70,45,52,48,90,75,30

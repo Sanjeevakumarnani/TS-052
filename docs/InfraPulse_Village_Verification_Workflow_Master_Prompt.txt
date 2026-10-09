@@ -1,0 +1,413 @@
+# INFRAPULSE — MASTER BUILD PROMPT: ADMIN DEVELOPMENT DATA + VILLAGE RESIDENT VERIFICATION + LIVE CAMERA + AI EVIDENCE REVIEW
+
+## Your role and objective
+
+You are the lead full-stack engineer, product architect, geospatial engineer, AI/vision integration engineer, database engineer, security engineer, QA engineer, and UI/UX designer. You must work **directly in the existing InfraPulse codebase**. The current app is an MVP, not a blank project. Preserve working dashboard, map, village profiles, reliability scoring, priority rankings, scenario simulator, methodology/source pages, CSV import/export, and field-report functionality while extending the current app.
+
+The repository is the existing `InfraPulse_MVP` project. The stack currently includes React + Vite frontend, FastAPI backend, SQLite persistence for local demo, village seed records, scoring logic, and basic CSV import. Read the existing code before changing it. The exact current files and contracts are the source of truth. Do not blindly replace the application or build an unrelated application.
+
+**Primary product objective:** Admins upload structured CSV records describing infrastructure assets, public works, development projects, service improvements, and claimed completion/status for each village. Users sign in, select State → District (if used) → Mandal/Block → Village, share device location, and can be associated with that village only when the location matches a supported official village boundary or a documented, configurable approximation. Immediately after selecting a village, they see the admin-provided records for that village and can verify what is actually present, completed, functional, incomplete, damaged, absent, or not known. They can open the device camera directly, capture evidence (do not make a photo file-picker the main camera path), see live latitude and longitude overlaid at the bottom of the camera preview, and capture a photo. A server-side AI vision service analyses the development record, user answer, image, time, and location metadata to return structured, uncertainty-aware evidence observations. The user reviews/edits the AI analysis, then submits it. All reports and evidence are stored in the database and linked to the exact imported development record and village. Admins can inspect individual submissions, compare responses across residents, see discrepancies and summary calculations, review the AI output, and explicitly approve/reject findings. Only approved, validated evidence may affect trusted summaries or scores. The workflow must be functional from frontend through backend, database, storage, AI provider, tests, and documentation.
+
+Do not only explain, plan, or generate mock screens. Implement the features in code, run the tests/build, and fix issues. Never report success for a feature that is only a UI placeholder.
+
+---
+
+## 1. Start with a mandatory repository audit
+
+1. Read `README.md`, backend/frontend READMEs, `backend/app/main.py`, `backend/app/db.py`, `backend/app/domain.py`, `backend/app/config.py`, `frontend/src/App.jsx`, `frontend/src/styles.css`, the current tests, sample data, CSV template, and files under `docs/`.
+2. Inspect all current API paths, database schema, startup initialization/seeding, frontend routing/state, import behavior, scoring behavior, and current deployment configuration.
+3. Create/update `docs/WORKFLOW_IMPLEMENTATION_AUDIT.md`. For every requirement below, state: existing behavior, gap, planned files/changes, test, and status (`done`, `partial`, `blocked`, `not done`).
+4. Run the existing backend test suite before modifying anything and record the actual result. Attempt the current frontend production build if dependencies are installed; do not assume it builds.
+5. Keep a safe copy/migration path for existing local data. Never reset/delete the database or seed over existing records during ordinary app startup.
+6. Implement all critical functionality in a coherent order. Do not stop after creating the audit. Continue modifying the codebase directly.
+
+## 2. User roles and application navigation
+
+Implement and enforce three roles in the backend:
+
+- **Administrator:** manage village registry/location references, upload development CSVs, inspect every submission, manage review decisions, run/inspect calculations, configure data imports and manage sources. Use real server-side role checks.
+- **Resident/community user:** sign in, select a village, complete location verification/membership association, view that village's admin-uploaded development records, submit verification responses, capture evidence via the live camera, view their own submission statuses, and correct/resubmit when requested.
+- **Public/unauthenticated visitor:** optionally browse non-sensitive aggregate/project information. Must not access a private camera capture, personal account details, draft reports, original attachments or protected admin screens.
+
+Create or complete these routes/pages in the existing style. Reuse current pages/components where sensible:
+
+1. Overview dashboard.
+2. Admin sign-in.
+3. Resident sign-up/sign-in and account page.
+4. Admin village registry / geography configuration (only fields actually supported by the data).
+5. Admin development data upload: CSV template, upload, validate/preview, confirm, import history and row-level errors.
+6. Public/resident village selection: State → District (if applicable) → Mandal/Block → Village.
+7. Location permission and village match result page.
+8. Resident village dashboard showing admin-uploaded development records immediately after successful association.
+9. Development record detail and response/verification wizard.
+10. Live camera capture page/dialog with lat/lon overlay at the bottom, accuracy, time, retake and confirm controls.
+11. AI analysis review page: image, claim, user’s answer, AI findings, uncertainty, and edit/confirm action.
+12. Submission receipt and “My submissions / status” page.
+13. Admin verification dashboard: village/project filters, submitted responses, photos, AI outputs, disagreement flags, review actions and audit trail.
+14. Village performance/verification summary and calculation explanation.
+15. Methodology, privacy and source pages.
+
+All primary buttons, links, form controls, uploads, camera actions, and filters must work. Remove dead buttons and mock interactions. Provide loading, error, success, empty, and permission-denied states. Keep the existing clean, accessible, mostly neutral design style; do not introduce flashy gradients or unsupported claims.
+
+## 3. Geographic hierarchy and location verification
+
+### Required hierarchy
+
+Store a canonical location structure, ideally with stable IDs rather than relying on village names alone:
+
+`State → District (when applicable) → Mandal/Block → Village`
+
+Names can repeat across districts/states. The foreign-key relationship must use IDs; imported data must resolve each development record to exactly one village ID. Support aliases/transliterations if feasible, but never silently assign an ambiguous village by name only.
+
+### Location reference data
+
+Inspect the current village data. Existing seeded village names and coordinates are synthetic demo data. Never treat them as official geography. Add a clear `is_demo`/`data_origin` distinction or equivalent. Admins must be able to import or configure verified geographic references, including official village/administrative codes, centroid coordinates, and ideally boundary polygons (GeoJSON) where lawfully available.
+
+### Location permission and matching workflow
+
+1. User creates/signs into an account.
+2. User selects State, District (if present), Mandal/Block, and Village from controlled cascading selectors.
+3. Explain in plain language why location permission is requested. Do not request browser geolocation before explaining the reason and asking the user to press a clear action such as **Verify my location**.
+4. On that action, use the browser Geolocation API and capture latitude, longitude, reported horizontal accuracy, client timestamp, and the server receipt time. Request high accuracy where supported, with timeout/error handling.
+5. Prefer point-in-polygon matching against a verified official village boundary. If that boundary is unavailable, use an explicitly configured distance threshold from a verified village centroid, with a warning that centroid/radius matching is an approximation. Do not invent boundaries or treat approximate/demo pins as official.
+6. Compare the current coordinates to the chosen village and show a human-readable result: match, mismatch, not enough accuracy, unsupported location data, boundary unavailable, permission denied, or retry required. Explain approximate distance where appropriate, but do not reveal another user's location.
+7. If match passes the configured rule, create a village membership/association with match method, coordinates (or appropriately minimised location record), accuracy, timestamp, and result. Do not call it “verified resident” if GPS alone only verifies presence near the village at that time. Label it “location matched” or similar.
+8. If location mismatches, do not register the user to the selected village. Offer retry, reselect correct village, or a clearly labelled manual review process if a legitimate exception is needed. Manual overrides require an authorised reviewer and audit entry.
+9. If the user refuses location permission, do not spoof success. Explain that location-based village association cannot be completed. Depending on product policy, allow general browsing but require a successful match or an approved manual process before submitting “verified village member” contributions.
+10. Avoid storing precise location forever when unnecessary. Store the minimum needed evidence and show the location retention policy. Provide consent and account/data deletion processes as appropriate.
+
+Do not claim browser GPS is tamper-proof. GPS can be inaccurate or spoofed. Location match only establishes a signal of presence and is one evidence factor, not proof of identity or residency.
+
+## 4. Admin development-data CSV workflow
+
+Admin uploads structured data representing infrastructure works/assets/development activities per village. Examples: road upgrades/repairs, electricity improvements, mobile/network infrastructure, public digital facilities, drinking water/essential facility access (only if included in the declared project scope), construction or upgrade status, reported completion date, source and notes. Keep the initial scope centred on the five InfraPulse dimensions: digital connectivity, electricity, roads, public digital infrastructure, essential-service access.
+
+### Implement the complete import flow
+
+`Download template → Select CSV → Parse → Validate → Preview rows → Fix/reject errors → Confirm import → Transactional save → Import receipt → Record history`
+
+The upload form must show the expected schema before the admin selects a file. Preview at least the first rows plus total counts, accepted rows, rejected rows, duplicates and the specific error for every rejected row. Confirmation must be explicit. Imports must use a transaction; failed imports must not leave half-written records.
+
+### Required suggested schema
+
+Adapt column naming to existing conventions, but document a definitive versioned schema. Recommended columns:
+
+- `record_id` (optional only if generated safely; unique per source/import strategy)
+- `state_code`, `state_name`
+- `district_code`, `district_name`
+- `mandal_code`, `mandal_name` (or block equivalents)
+- `village_code`, `village_name`
+- `dimension` (one of the supported infrastructure dimensions)
+- `asset_or_project_name`
+- `description` / `work_scope`
+- `reported_status` (planned, in_progress, reportedly_completed, operational, non_operational, unknown; document allowed values)
+- `start_date`, `reported_completion_date`, `last_observed_date`
+- `source_name`, `source_url`, `source_reference_id`, `source_type`
+- `estimated_cost` and currency only if the dataset legitimately contains it; do not fabricate
+- `latitude`, `longitude` only if actual supported coordinates are available
+- `notes`
+- optional `is_demo`/`data_origin`
+
+The canonical village foreign key must be resolved during validation. If the hierarchy is unknown/ambiguous, reject that row or ask admin to map it. A name-only assignment that picks the first matching village is forbidden.
+
+Provide downloadable example template and a small clearly marked synthetic demo CSV. Never label demo rows as official or measured. Do not mix synthetic sample rows with verified imported rows in a way that hides their origin.
+
+### Data versioning and history
+
+Each import batch records uploader admin ID, filename safe-display name, file hash, import timestamp, schema version, accepted/rejected counts, errors, source/license details where relevant, and status. Avoid duplicate records by source ID/hash and documented matching rules. If a new CSV changes existing values, show before/after differences and require explicit update confirmation. Do not silently overwrite newer or verified records. Preserve import versions and audit important changes.
+
+## 5. Resident village dashboard and development verification process
+
+After a successful location match and village association, take the user directly to **My Village**. Immediately display the development records the admin imported for the selected village, separated by dimension/status and sorted by most relevant/recent. The page must show which record/source/date each displayed claim came from and visibly distinguish official/imported claim, community observations, AI analysis and admin-approved evidence.
+
+For each development/project record, show a verification card with:
+
+- Project/asset name and description.
+- Infrastructure dimension/category.
+- Admin-provided reported status (e.g., reportedly completed/in progress/operational).
+- Official/source attribution, record date and last update date.
+- Optional admin-provided location, clearly labelled approximate if not exact.
+- A prompt asking whether the listed status matches what the user sees.
+- **Observed status** choices: `matches_and_appears_functional`, `exists_but_incomplete`, `exists_but_damaged_or_not_functional`, `not_found_at_location`, `cannot_verify`, `other_or_conflicting`. Explain each choice in simple language.
+- Optional written notes, incident date, recurrence/impact where relevant.
+- **Capture photo** button that opens live camera. Do not make selecting an existing photo the main evidence path. If a separate optional attachment path is retained elsewhere, clearly separate it from live capture and apply the same checks.
+- A clear data notice that an observation is submitted as community evidence and does not automatically change official data.
+
+Allow users to verify one record at a time and continue through remaining records. Include draft/save-progress if technically feasible, submitted/reviewed state badges, and filters for not yet answered, submitted, and reviewed. Prevent accidental repeated submissions; show previous answer and offer a “submit updated observation” action that creates a new version rather than silently overwriting the audit history.
+
+A user should be able to report a record that is missing, incorrectly described, or not yet in the admin dataset. Such reports must be explicitly classified as a proposed new issue/record, not assigned to an existing record falsely.
+
+## 6. Live camera capture with latitude/longitude overlay (not file upload)
+
+Build this as a working browser camera flow, not a decorative screen.
+
+### Capture lifecycle
+
+1. User presses **Capture evidence** and sees why camera and optional location permissions are needed.
+2. Check `navigator.mediaDevices.getUserMedia` availability and secure context. Localhost is generally permitted; a deployed production site must use HTTPS. Explain that restriction if the browser environment blocks camera access.
+3. Request the rear-facing camera where possible (`facingMode: environment`) and provide a switch camera control when multiple cameras are available. Provide cancel/stop-camera controls and always release media tracks when closing/navigating away.
+4. Concurrently obtain a fresh geolocation reading (if consented), with accuracy radius and timestamp. Don't silently reuse stale coordinates. If geolocation is absent/denied, do not display invented values; show “Location unavailable” and follow the configured policy (normally let the user retake/request permission; only allow a no-location contribution if the product's explicit fallback rules permit it, with lower evidence status).
+5. Overlay **Latitude**, **Longitude**, **GPS accuracy**, and capture time visibly at the **bottom of the live camera preview**, as requested. The text must be readable, high-contrast and responsive. If no valid reading exists, show an honest unavailable state instead of fake coordinates.
+6. On capture, draw the live video frame into a canvas to create a Blob/File in memory. Do not open a system file-picker for this primary flow. Let the user preview, retake, and confirm. Keep camera preview metadata separate from the image itself as structured data. Optionally generate a visible coordinate/time-stamped evidence copy for preview, but do not pretend a visual stamp is tamper-proof. Do not rely on EXIF alone for GPS.
+7. Send the captured image Blob and metadata to the backend via multipart/form-data. Include project record ID, selected village ID, observation, client capture time, latitude/longitude, accuracy and consent flags. The backend must add its own receipt timestamp. Avoid including user identity/precise coordinates in public image URLs or exports.
+8. Validate server-side: image format/content, file size, dimensions, decode success, and safe storage key. Reject corrupted, huge or unsupported files. Re-encode accepted images to a safe format if a suitable library is already available. Strip unnecessary embedded metadata where appropriate. Store files outside the public frontend directory and keep attachment access protected.
+9. Show upload progress, retry, error and success states. Never report successful evidence submission before the API confirms it.
+10. Store the image and metadata securely with the submission. Make access available to its owner and authorised admins/reviewers only. Do not create a public unauthenticated file URL.
+
+### Browser and privacy edge cases
+
+Handle camera denied, location denied, unsupported camera API, no camera, insecure origin, permission timeout, lost stream, upload error, poor GPS accuracy, browser refresh, and mobile rotation. Give actionable, human-readable messages. Explicitly ask permission before accessing camera/location. Do not activate camera or location on page load. Don't collect continuous background location; one current point at user action is sufficient.
+
+A GPS overlay is a convenience/evidence label, not cryptographic proof. Show the GPS accuracy circle and do not claim precise verification when accuracy is poor.
+
+## 7. Backend AI image-analysis workflow
+
+The image must be analysed server-side by a real configurable vision model/provider, never by exposing a provider secret in frontend code. Use a provider abstraction so a compatible vision-capable API can be configured through environment variables. Inspect existing dependencies and choose the smallest maintained approach. Do not invent a provider call or return hardcoded fake analysis as if it were real.
+
+### Required flow
+
+1. The frontend submits the user's selected record, reported project status, observed status, optional notes, captured image, village ID, image capture coordinates/accuracy/time, consent, and evidence reference.
+2. Backend verifies authentication, village membership/match, permission, input lengths, file validation, and record access.
+3. Backend stores the submission and privately stores the image before/while starting analysis. Use an `analysis_status` such as `pending`, `processing`, `complete`, `failed`, `not_configured`. Handle retries idempotently so repeat requests do not create duplicate submissions.
+4. Backend prepares a minimal context for the vision model: the admin-provided project claim/record details, the user's declared observation and the image. Send only necessary data; don't send unnecessary identifiers or user secrets. Ensure consent and privacy notice are recorded.
+5. Ask the model for **structured JSON** only, with fields such as:
+   - `summary`
+   - `visible_elements` (observed visual features only)
+   - `relation_to_claim` (`supports`, `partially_supports`, `contradicts`, `inconclusive`, `not_relevant`)
+   - `apparent_condition` (`appears_functional`, `appears_incomplete`, `appears_damaged`, `not_assessable`, `not_applicable`)
+   - `observations`
+   - `uncertainties_and_limitations`
+   - `possible_privacy_or_safety_issue`
+   - `recommended_human_review`
+   - `model/provider name and version` where actually known
+   - `analyzed_at`
+   Do not let a model invent latitude/longitude, infer exact village identity from the image, declare the photo authentic, prove completion, prove ownership, or claim engineering-grade condition from a single image. The model may say a visual appears consistent/inconsistent with a claim, but must clearly state limitations.
+6. Validate the returned JSON using Pydantic or equivalent. If invalid, retry safely once or mark analysis failed; don't crash the submission workflow.
+7. Store the original user response, image metadata, exact record ID, AI output, provider/model metadata, prompt/method version if safe, and timestamps as separate fields. Preserve the user's own answer and the AI output separately; never overwrite one with the other.
+8. Show the AI result to the user before final submission, or if the chosen UX submits first, provide an explicit follow-up review step. User must be able to accept, edit, or disagree with the AI summary, with final user decision recorded separately from raw AI output. The user should not be forced to accept an incorrect AI answer.
+9. AI output is **advisory only**. It must not auto-verify the report or directly change trusted development status, reliability score, ranking or funding recommendations. Only review/validation workflow can promote evidence into an indicator.
+10. If the model/API key is not configured, times out, rejects the image, reaches rate limits, or returns errors, save the report and show `AI analysis unavailable` with a reason-safe message and retry option. Never display a hardcoded model result or claim that AI ran when it did not. A human-only submission path should remain usable, with analysis explicitly marked unavailable.
+11. Add configurable rate limits, request timeouts, payload limits, cost guards and a secure environment configuration guide. Keep model/API key backend-only. Avoid logging base64 image data or secrets.
+
+Create `.env.example` additions with documented, non-secret placeholders appropriate to the selected provider (for example API key, model name, API base URL only if genuinely supported, timeout, max image size). Never commit a real key. If image analysis is asynchronous, expose a status endpoint and implement polling/backoff or equivalent UX.
+
+## 8. Data model, database migrations, and relationships
+
+Adapt to the current SQLite schema rather than recreating it. Add schema migrations or a safe, versioned schema initialization process. At minimum represent equivalent concepts to the following (exact table names may follow current conventions):
+
+- `users`: ID, login identifier, securely hashed password if password auth is used, role, created/updated times, status.
+- `villages`: stable ID/code, state/district/mandal IDs/names, official geography/source status, centroid, optional boundary reference, demo/origin flag.
+- `village_memberships`: user ID, village ID, match status/method, capture accuracy, match timestamp, appropriate location-retention fields, review override/audit reference.
+- `development_records`: stable ID, canonical village foreign key, dimension, project/asset name, claim/description, reported status, dates, source metadata, import batch, version, origin, trusted/review status.
+- `import_batches` and `import_row_errors`: safe filename/hash, schema version, uploader ID, counts, result, source/license details and timestamp.
+- `evidence_submissions`: user, village, exact development record or new-issue reference, user's status answer, notes, capture time, observed latitude/longitude/accuracy, backend receipt time, report state, status reason/version.
+- `attachments`: private storage key, content type validated by server, size, hash, dimensions, captured timestamp, access controls, safe display name, scan status if scanner is configured.
+- `ai_analyses`: submission ID, status, provider/model version if known, structured raw/model output validated, method version, timestamps, failure category (no secret/raw image in logs).
+- `submission_status_history` / `audit_events`: actor, action, entity, before/after or safe diff, reason, timestamp.
+- `village_indicators` or score snapshots: dimension, value, unit, period, source, verification state, method/version and calculation timestamp, if required by the existing design.
+
+Use foreign keys and indexes. Keep immutable history for important decisions. Avoid duplicating full user data in each evidence row. Ensure migrations preserve old seeded data and do not treat existing demo data as official. Store times in a consistent UTC format and render them in the user's local timezone.
+
+## 9. Admin dashboard: see responses linked to admin-uploaded data
+
+An admin should be able to navigate from an imported batch → village → development record → all community submissions for that record.
+
+Show, with filters and pagination:
+
+- Total imported records and import batch status.
+- Response count per development record and per village.
+- Counts by observed status: matches, incomplete, damaged/non-functional, not found, cannot verify, conflicting.
+- Number of distinct users/observations and last observation date, without exposing private user information unnecessarily.
+- AI analysis status and structured AI result, separate from user response.
+- GPS match result/accuracy and whether official boundary or centroid approximation was used.
+- Evidence files accessible through protected routes.
+- Difference between the admin-provided claim and observed community evidence.
+- Duplicate/spam indicators and low-confidence flags.
+- Review state, reviewer, reason and full history.
+- Reliability calculation inputs/current score and a clear list of which admin-approved indicator/evidence changed it, when and by which method version.
+
+Implement filters by state, district, mandal, village, dimension, imported batch, record, status, period, AI status and review state. Use real data returned by the API, not static frontend arrays.
+
+Review actions should include accept as supporting evidence, mark verified only if the documented criteria are met, reject, request more information, mark duplicate/link report, redact unsafe content and explicitly promote an approved compatible value to a trusted indicator. Each action must require a reason where appropriate and create an audit entry.
+
+## 10. Calculation logic and how community evidence contributes
+
+Keep the current five dimensions and the existing score engine unless audit identifies a defect:
+
+- Digital connectivity: 25% prototype weight.
+- Electricity: 20%.
+- Roads: 20%.
+- Public digital infrastructure: 15%.
+- Essential-service access: 20%.
+
+Weights and thresholds are prototype assumptions, not official standards. Missing values remain unknown, not zero. Keep the configured minimum valid weight/coverage threshold; current spec uses 60%. Label all synthetic records as demo.
+
+Do not collapse **development-project status** into **service reliability**. A road repair marked “completed” is not by itself proof that the road is currently accessible and reliable; a public facility's existence is not proof it is operating; a single network photo does not measure speed or uptime. Maintain distinct concepts:
+
+1. Admin-reported development/work status.
+2. Resident-reported observed status.
+3. AI advisory assessment.
+4. Moderation/verification status.
+5. Trusted indicator used in a reliability calculation, with method/source/time/unit.
+
+Create transparent village-level verification metrics such as:
+
+- Imported development-record count.
+- Response coverage = distinct development records with at least one valid response / eligible imported records.
+- Agreement rate among reviewed/eligible evidence, with sample size.
+- Discrepancy rate for claims marked completed/operational but reported incomplete/damaged/not found, showing exact numerator/denominator and review status.
+- Evidence recency and coverage.
+- Count of awaiting review.
+
+These are evidence/verification metrics, not automatically reliability scores. Clearly distinguish submitted from reviewed data. Avoid letting repeated reports from one person or one device dominate. Use deduplication, per-record rate limits, minimum sample sizes and a documented method for aggregation.
+
+The official reliability score should change only if an authorised workflow explicitly promotes a validated indicator/value with an appropriate definition, unit, observation period, geographic scope and source. Save the score snapshot and method version. Provide an explanation of the change and preserve the previous result. AI confidence alone must never make a record verified.
+
+If a basic consensus calculation is used for prototype insights, document it, include sample counts and confidence limits, and label it exploratory. Do not use unreviewed user answers to claim that a village is officially deficient or that public funds should be directed there.
+
+## 11. API requirements
+
+Inspect existing routes and preserve compatible endpoint behavior. Add equivalent REST endpoints under the current `/api/v1` convention; names can vary if documented consistently. All request/response bodies must have schemas and validation. Suggested routes:
+
+Authentication:
+- `POST /api/v1/auth/register`
+- `POST /api/v1/auth/login`
+- `POST /api/v1/auth/logout`
+- `GET /api/v1/auth/me`
+
+Geography and membership:
+- `GET /api/v1/geography/states`
+- `GET /api/v1/geography/districts?state_id=...`
+- `GET /api/v1/geography/mandals?district_id=...`
+- `GET /api/v1/geography/villages?mandal_id=...`
+- `POST /api/v1/village-memberships/verify-location`
+- `GET /api/v1/me/village`
+
+Admin data:
+- `GET /api/v1/admin/imports/template.csv`
+- `POST /api/v1/admin/imports/validate`
+- `POST /api/v1/admin/imports/confirm`
+- `GET /api/v1/admin/imports`
+- `GET /api/v1/admin/imports/{batch_id}`
+- `GET /api/v1/admin/villages/{village_id}/development-records`
+
+Resident verification:
+- `GET /api/v1/me/development-records`
+- `GET /api/v1/development-records/{record_id}`
+- `POST /api/v1/development-records/{record_id}/submissions` (multipart image + structured fields, or presigned/private upload flow where justified)
+- `GET /api/v1/me/submissions`
+- `GET /api/v1/me/submissions/{submission_id}`
+- `GET /api/v1/submissions/{submission_id}/analysis-status` (owner/reviewer protected)
+
+Admin review:
+- `GET /api/v1/admin/submissions`
+- `GET /api/v1/admin/submissions/{submission_id}`
+- `POST /api/v1/admin/submissions/{submission_id}/review`
+- `POST /api/v1/admin/submissions/{submission_id}/promote-indicator`
+- `GET /api/v1/admin/villages/{village_id}/verification-summary`
+- `GET /api/v1/admin/audit-events`
+
+Do not create these mechanically if an equivalent safe existing endpoint exists; extend and document the current interface. Pagination, filtering, errors, HTTP status codes, privacy fields, and role checks must be consistent. Swagger/OpenAPI should clearly identify protected endpoints.
+
+## 12. Authentication and security
+
+- Use a maintained password hashing library (Argon2/bcrypt suitable to the dependency stack). Never store plaintext passwords.
+- Never hardcode production admin credentials. Use an environment-only local bootstrap mechanism to create the first admin, with instructions to disable/remove bootstrap after setup. Don't ship a working default password.
+- Choose a coherent session approach; prefer secure, HttpOnly, SameSite cookies when compatible with the app architecture, and CSRF protection where needed. If bearer tokens are selected, document storage risks and avoid putting long-lived secrets in localStorage.
+- Enforce roles and ownership on every protected endpoint: public users cannot see all reports, other users' submissions or private camera files; only admins can import or moderate.
+- Validate all text, ids, enum values, file contents, coordinates, timestamps, row counts and file sizes on the server.
+- Configure CORS for known origins; don't use wildcard origins with credentials.
+- Add login and report-submission rate limits appropriate to the current stack; explain local/production configuration.
+- Avoid detailed stack traces to API consumers. Do not log passwords, auth tokens, raw image/base64 payloads or private user location.
+- Restrict uploads to accepted raster image types; never allow HTML/JS/SVG or executable uploads through this path. Use random storage keys, content validation/re-encoding, size caps, and private download endpoints. Use malware scanning if actually configured; otherwise do not claim files are scanned.
+- Include a privacy notice, informed consent text for camera/location/AI processing, retention guidance, and a report of what fields are saved.
+
+## 13. UX rules for the whole workflow
+
+- Use cascading selects with search/empty/error states for State, District, Mandal/Block and Village.
+- After village matching succeeds, navigate immediately to the village dashboard and clearly show the selected village and match status.
+- On the village dashboard, place imported development records above the fold so the verification task is obvious.
+- Show separate labels for `Admin reported`, `Community reported`, `AI analysis`, `Under review`, and `Admin verified`.
+- For each record, display response progress and allow easy continuation.
+- The camera screen should have large capture/retake/confirm buttons, a visible permission indicator and bottom lat/lon overlay. Make it mobile-friendly and accessible.
+- AI result presentation must include “AI can be wrong—please review” and let the user disagree/edit.
+- Submit confirmation should include what will be stored, who can review it, and whether it may contribute to aggregate statistics after review.
+- Admin views should make differences between claim and community observation easy to scan without treating allegation as confirmed fact.
+- Responsive layout from mobile to desktop, useful keyboard focus, labels, screen-reader-friendly feedback and no color-only status distinctions.
+
+## 14. Tests and acceptance criteria
+
+Add automated tests for existing and newly added functionality. At a minimum test:
+
+**CSV/import:** valid template, missing/extra columns, invalid status/dimension, bad dates, ambiguous village names, invalid/unknown village code, duplicate IDs, update conflict, rejected rows with reasons, transactional rollback, hash duplicate, import permissions, preserving existing/demo rows.
+
+**Auth/roles:** password hash stored not plain, wrong password rejected, protected route without login denied, resident cannot access admin APIs, one resident cannot fetch another user's submission or evidence, logout works, admin bootstrap is environment controlled.
+
+**Geolocation:** boundary match, outside boundary, centroid/radius approximation, missing official geometry, poor accuracy, permission denied UI/API policy, invalid coordinates, selected village mismatch, manual override audit. Do not claim GPS spoofing is solved.
+
+**Camera and files:** camera unavailable UI, actual captured Blob path, unsupported format, corrupt image, wrong MIME, too-large file, filename traversal, server-side dimensions/decoding validation, protected attachment access, failed storage handling, camera stream stops when exiting, no file-picker used by the primary capture action.
+
+**AI:** configured provider returns validated schema; invalid JSON; timeout; rate limit; missing key; provider error; image too large; idempotent retry; analysis failure doesn't delete report; no AI response automatically changes score/review state; keys absent from frontend bundle/logs.
+
+**Reports/review:** every report linked to exact imported record and village; user and AI outputs stored separately; initial status unverified; status changes audited; duplicates/rate limits; promotion requires admin + reason + valid comparable indicator; denied actions don't mutate data.
+
+**Calculations:** no zero fill for missing data; summary denominators correct; multiple responses aren't naively counted as separate villages; minimum sample count behavior; score baseline immutable without explicit approved promotion; calculation method version stored and explained.
+
+**Frontend:** cascade selectors, verified/mismatch states, village dashboard loads imported data, response form validates, camera preview and overlay, retake/capture, upload progress/errors, AI result review/edit, submission status page, admin CSV preview, submission review, responsive/permission failure states.
+
+Execute the existing backend tests and all new tests. Run frontend install/build and fix errors. If a network dependency is unavailable in your environment, keep implementing independent work and record the precise blocker. Don't claim the frontend is verified without running the build.
+
+## 15. Definition of done: complete demonstration path
+
+The following journey must work end-to-end using clearly labelled demo data:
+
+1. Admin signs in through a configured local admin account.
+2. Admin downloads the correct CSV template, imports a synthetic test batch of village development records, previews validation, confirms import, and sees an import receipt.
+3. Admin opens a village and sees each imported development record attached to the correct village ID.
+4. Resident signs in or registers, chooses State → District → Mandal → Village.
+5. Resident grants location access, gets a real location reading and clear match/mismatch result; only a successful supported match (or audited manual review path) creates the village association.
+6. Resident lands on the village dashboard and immediately sees those admin-uploaded records.
+7. Resident opens a record, reports what they observed, captures a photo with the live lat/lon/accuracy/time overlay at the bottom, previews and confirms it without using a file picker for the main capture flow.
+8. Backend stores the submission and private image, and the configured AI provider analyses the image/claim or honestly reports AI unavailable if not configured.
+9. Resident reviews/edits the AI summary and submits. They receive a reference/status and can view their own submission later.
+10. Admin opens the exact imported record, sees the user response, protected evidence, GPS match/accuracy, raw AI analysis, user decision, status, and audit history.
+11. Admin reviews, records a reason and can accept/reject/request more info/mark duplicate. Any score-affecting promotion is a separate explicitly authorised action and creates a versioned audit record.
+12. Village summary updates visible response counts, coverage, discrepancy metrics and reviewed status transparently. Baseline reliability does not silently change simply because an unreviewed report was submitted.
+13. Tests verify role protections, safe file handling, scoring behavior and data provenance.
+
+All relevant demo records, coordinates and development entries must be labelled synthetic. A realistic UI does not make synthetic data real.
+
+## 16. Implementation sequence — do not stop after planning
+
+Work in this order, but adapt if the current code makes a safer sequence necessary:
+
+1. Audit actual code, run current tests, create `docs/WORKFLOW_IMPLEMENTATION_AUDIT.md`.
+2. Design/migrate the schema and stable geography hierarchy without losing current data.
+3. Implement protected authentication and admin bootstrap safely.
+4. Implement CSV schema/template, preview, validation, canonical village mapping, import confirmation/transaction, batch history and errors.
+5. Implement resident authentication, cascading geography, location permissions/matching, and village membership.
+6. Implement the village dashboard that loads the admin's data and record-by-record observation workflow.
+7. Implement live camera capture with bottom GPS overlay, secure server upload, private storage and failure states.
+8. Implement configured server-side vision AI with structured validated output and honest failure fallback.
+9. Implement resident submission history and admin review console/audit trail.
+10. Implement trusted-indicator promotion and village verification summary calculations, keeping claim/reports/AI/verified score inputs distinct.
+11. Complete frontend UX, security, accessibility, privacy and responsive behavior.
+12. Run tests/build, fix failures, update `README.md`, `.env.example`, CSV schema docs, data dictionary, privacy/methodology docs, deployment/storage instructions, and the audit statuses.
+13. Create a new ZIP only if asked or useful, and only after confirming the file exists and passes an integrity check.
+
+## 17. Final report required from you
+
+When you finish, return:
+
+1. The actual modules/features implemented.
+2. Key files created/changed.
+3. Exact commands run and their actual pass/fail results for backend tests, frontend production build, and end-to-end journeys.
+4. How to start the app on localhost on Windows and how to configure environment variables.
+5. How to create the first local admin without hardcoded credentials.
+6. The CSV template columns and a link/path to the sample file.
+7. How to configure the selected AI vision provider and confirm that a real analysis request was made; if no key/provider is available, clearly state that AI was not live-tested.
+8. What browser permissions/HTTPS conditions are required for camera and geolocation.
+9. Any remaining partial or blocked requirements in `docs/WORKFLOW_IMPLEMENTATION_AUDIT.md`.
+10. Do not claim a feature is completed unless it is implemented, connected end-to-end and tested.
+
+**Begin by inspecting the existing `InfraPulse_MVP` codebase now. Then implement the complete workflow directly, rather than replying with another plan or generic recommendations.**
